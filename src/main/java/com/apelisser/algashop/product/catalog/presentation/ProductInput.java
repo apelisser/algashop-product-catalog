@@ -7,7 +7,6 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.math.BigDecimal;
-import java.time.OffsetDateTime;
 import java.util.UUID;
 
 @Getter
@@ -15,36 +14,27 @@ import java.util.UUID;
 @ToString
 @EqualsAndHashCode
 @Builder
-public class ProductDetailOutput {
+public class ProductInput {
 
-    private UUID id;
-    private OffsetDateTime addedAt;
     private String name;
     private String brand;
     private BigDecimal regularPrice;
     private BigDecimal salePrice;
-    private Boolean inStock;
     private Boolean enabled;
     private UUID categoryId;
-    private CategoryMinimalOutput category;
     private String description;
 
-    public ProductDetailOutput() {
+    public ProductInput() {
     }
 
-    public ProductDetailOutput(UUID id, OffsetDateTime addedAt, String name, String brand, BigDecimal regularPrice,
-            BigDecimal salePrice, Boolean inStock, Boolean enabled, UUID categoryId, CategoryMinimalOutput category,
-        String description) {
-        this.id = id;
-        this.addedAt = addedAt;
+    public ProductInput(String name, String brand, BigDecimal regularPrice, BigDecimal salePrice, Boolean enabled,
+            UUID categoryId, String description) {
         this.name = name;
         this.brand = brand;
         this.regularPrice = regularPrice;
         this.salePrice = salePrice;
-        this.inStock = inStock;
         this.enabled = enabled;
         this.categoryId = categoryId;
-        this.category = category;
         this.description = description;
     }
 
