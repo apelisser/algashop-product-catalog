@@ -23,6 +23,7 @@ Contract.make {
             regularPrice: 1500.00,
             salePrice: 1000.00,
             inStock: false,
+            enabled: true,
             categoryId: anyUuid(),
             description: "A gamer notebook",
         ])
