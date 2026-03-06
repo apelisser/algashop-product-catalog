@@ -54,7 +54,7 @@ Contract.make {
             brand: fromRequest().body('$.brand'),
             regularPrice: fromRequest().body('$.regularPrice'),
             salePrice: fromRequest().body('$.salePrice'),
-            inStock: anyBoolean(),
+            inStock: false,
             enabled: fromRequest().body('$.enabled'),
             category: [
                 id: anyUuid(),

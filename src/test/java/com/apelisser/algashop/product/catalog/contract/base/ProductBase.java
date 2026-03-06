@@ -1,5 +1,6 @@
 package com.apelisser.algashop.product.catalog.contract.base;
 
+import com.apelisser.algashop.product.catalog.application.ResourceNotFoundException;
 import com.apelisser.algashop.product.catalog.application.product.management.ProductManagementApplicationService;
 import com.apelisser.algashop.product.catalog.application.product.query.PageModel;
 import com.apelisser.algashop.product.catalog.application.product.query.ProductDetailOutput;
@@ -34,6 +35,8 @@ public class ProductBase {
     ProductManagementApplicationService productManagementApplicationService;
 
     public static final UUID validProductId = UUID.fromString("fffe4676-367b-4015-941a-41c31c3b3d3e");
+    public static final UUID invalidProductId = UUID.fromString("21651a12-b126-4213-ac21-19f66ff4642e");
+    public static final UUID createdProductId = UUID.fromString("cc4cb634-c849-431e-ba35-8f12156b6920");
 
     @BeforeEach
     void setUp() {
@@ -48,11 +51,20 @@ public class ProductBase {
         mockValidOrderFindById();
         mockFilterProducts();
         mockCreateProduct();
+        mockInvalidProductFindById();
+    }
+
+    private void mockInvalidProductFindById() {
+        Mockito.when(productQueryService.findById(invalidProductId))
+            .thenThrow(new ResourceNotFoundException());
     }
 
     private void mockCreateProduct() {
         Mockito.when(productManagementApplicationService.create(Mockito.any(ProductInput.class)))
-            .thenReturn(validProductId);
+            .thenReturn(createdProductId);
+
+        Mockito.when(productQueryService.findById(createdProductId))
+            .thenReturn(ProductDetailOutputTestDataBuilder.aProduct().inStock(false).build());
     }
 
     private void mockFilterProducts() {
