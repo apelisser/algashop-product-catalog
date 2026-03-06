@@ -49,7 +49,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
                 objectError -> messageSource.getMessage(objectError, LocaleContextHolder.getLocale())
             ));
 
-        problemDetail.setProperty("fieldErrors", fieldErrors);
+        problemDetail.setProperty("fields", fieldErrors);
 
         return super.handleExceptionInternal(ex, problemDetail, headers, status, request);
     }
