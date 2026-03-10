@@ -1,6 +1,5 @@
 package com.apelisser.algashop.product.catalog.application.product.management;
 
-import com.apelisser.algashop.product.catalog.presentation.ProductInput;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;

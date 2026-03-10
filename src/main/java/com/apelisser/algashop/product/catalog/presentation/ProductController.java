@@ -1,24 +1,14 @@
 package com.apelisser.algashop.product.catalog.presentation;
 
+import com.apelisser.algashop.product.catalog.application.product.management.ProductInput;
 import com.apelisser.algashop.product.catalog.application.product.management.ProductManagementApplicationService;
-import com.apelisser.algashop.product.catalog.application.product.query.CategoryMinimalOutput;
 import com.apelisser.algashop.product.catalog.application.product.query.PageModel;
 import com.apelisser.algashop.product.catalog.application.product.query.ProductDetailOutput;
 import com.apelisser.algashop.product.catalog.application.product.query.ProductQueryService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import java.math.BigDecimal;
-import java.time.OffsetDateTime;
-import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -51,6 +41,18 @@ public class ProductController {
             @RequestParam(name = "size", required = false) Integer size,
             @RequestParam(name = "number", required = false) Integer number) {
         return productQueryService.filter(size, number);
+    }
+
+    @PutMapping("/{productId}")
+    public ProductDetailOutput update(@PathVariable UUID productId, @RequestBody @Valid ProductInput input) {
+        productManagementApplicationService.update(productId, input);
+        return productQueryService.findById(productId);
+    }
+
+    @DeleteMapping("/{productId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void delete(@PathVariable UUID productId) {
+        productManagementApplicationService.disable(productId);
     }
 
 }
