@@ -26,7 +26,6 @@ public class ProductBase {
 
     @Autowired
     WebApplicationContext context;
-    private Object mockMvc;
 
     @MockitoBean
     ProductQueryService productQueryService;
@@ -41,7 +40,6 @@ public class ProductBase {
 
     @BeforeEach
     void setUp() {
-        System.out.println(UUID.randomUUID().toString());
         RestAssuredMockMvc.mockMvc(
             MockMvcBuilders.webAppContextSetup(context)
                 .defaultResponseCharacterEncoding(StandardCharsets.UTF_8)
