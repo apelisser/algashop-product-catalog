@@ -9,17 +9,16 @@ Contract.make {
             accept 'application/json'
             contentType 'application/json'
         }
-        urlPath("/api/v1/products/bdc585c9-b535-469e-be44-208cc918b638") {
-            body([
-                name: "Notebook X99",
-                brand: "Deep Diver",
-                regularPrice: 2000.00,
-                salePrice: 1500.00,
-                enabled: true,
-                categoryId: "f5a5a5a5-a5a5-a5a5-a5a5-a5a5a5a5a5a5",
-                description: "A new notebook model for gaming"
-            ])
-        }
+        urlPath("/api/v1/products/bdc585c9-b535-469e-be44-208cc918b638")
+        body([
+            name: "Notebook X99",
+            brand: "Deep Diver",
+            regularPrice: 2000.00,
+            salePrice: 1500.00,
+            enabled: true,
+            categoryId: "f5a5a5a5-a5a5-a5a5-a5a5-a5a5a5a5a5a5",
+            description: "A new notebook model for gaming"
+        ])
     }
     response {
         status 404

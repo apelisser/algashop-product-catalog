@@ -9,12 +9,11 @@ Contract.make {
             accept 'application/json'
             contentType 'application/json'
         }
-        urlPath("/api/v1/categories/df01c615-d379-4085-905b-a98ef51e5fd9") {
-            body([
-                name: "Notebook",
-                enabled: true
-            ])
-        }
+        urlPath("/api/v1/categories/df01c615-d379-4085-905b-a98ef51e5fd9")
+        body([
+            name: "Notebook",
+            enabled: true
+        ])
     }
     response {
         status 404

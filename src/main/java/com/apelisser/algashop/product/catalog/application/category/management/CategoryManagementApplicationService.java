@@ -1,4 +1,4 @@
-package com.apelisser.algashop.product.catalog.application.product.management;
+package com.apelisser.algashop.product.catalog.application.category.management;
 
 import org.springframework.stereotype.Service;
 

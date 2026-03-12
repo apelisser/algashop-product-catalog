@@ -1,4 +1,4 @@
-package com.apelisser.algashop.product.catalog.application.product.management;
+package com.apelisser.algashop.product.catalog.application.category.management;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

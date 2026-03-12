@@ -9,11 +9,10 @@ Contract.make {
             accept 'application/json'
             contentType 'application/json'
         }
-        urlPath("/api/v1/categories") {
-            body([
-                name: ""
-            ])
-        }
+        urlPath("/api/v1/categories")
+        body([
+            name: ""
+        ])
     }
     response {
         status 400

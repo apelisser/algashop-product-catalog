@@ -1,4 +1,4 @@
-package com.apelisser.algashop.product.catalog.application.product.query;
+package com.apelisser.algashop.product.catalog.application.category.query;
 
 import lombok.Builder;
 import lombok.EqualsAndHashCode;

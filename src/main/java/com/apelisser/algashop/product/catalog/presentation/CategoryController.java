@@ -1,10 +1,10 @@
 package com.apelisser.algashop.product.catalog.presentation;
 
-import com.apelisser.algashop.product.catalog.application.product.management.CategoryInput;
-import com.apelisser.algashop.product.catalog.application.product.management.CategoryManagementApplicationService;
-import com.apelisser.algashop.product.catalog.application.product.query.CategoryDetailOutput;
-import com.apelisser.algashop.product.catalog.application.product.query.CategoryQueryService;
-import com.apelisser.algashop.product.catalog.application.product.query.PageModel;
+import com.apelisser.algashop.product.catalog.application.category.management.CategoryInput;
+import com.apelisser.algashop.product.catalog.application.category.management.CategoryManagementApplicationService;
+import com.apelisser.algashop.product.catalog.application.category.query.CategoryDetailOutput;
+import com.apelisser.algashop.product.catalog.application.category.query.CategoryQueryService;
+import com.apelisser.algashop.product.catalog.application.PageModel;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;

@@ -9,38 +9,37 @@ Contract.make {
             accept 'application/json'
             contentType 'application/json'
         }
-        urlPath("/api/v1/products/fffe4676-367b-4015-941a-41c31c3b3d3e") {
-            body([
-                name: value(
-                    test("Notebook X11"),
-                    stub(nonBlank())
-                ),
-                brand: value(
-                    test("Deep Diver"),
-                    stub(nonBlank())
-                ),
-                regularPrice: value(
-                    test(1500.00),
-                    stub(number())
-                ),
-                salePrice: value(
-                    test(1000.00),
-                    stub(number())
-                ),
-                enabled: value(
-                    test(true),
-                    stub(anyBoolean())
-                ),
-                categoryId: value(
-                    test("f5a5a5a5-a5a5-a5a5-a5a5-a5a5a5a5a5a5"),
-                    stub(anyUuid())
-                ),
-                description: value(
-                    test("A gamer notebook"),
-                    stub(optional(nonBlank()))
-                )
-            ])
-        }
+        urlPath("/api/v1/products/fffe4676-367b-4015-941a-41c31c3b3d3e")
+        body([
+            name: value(
+                test("Notebook X11"),
+                stub(nonBlank())
+            ),
+            brand: value(
+                test("Deep Diver"),
+                stub(nonBlank())
+            ),
+            regularPrice: value(
+                test(1500.00),
+                stub(number())
+            ),
+            salePrice: value(
+                test(1000.00),
+                stub(number())
+            ),
+            enabled: value(
+                test(true),
+                stub(anyBoolean())
+            ),
+            categoryId: value(
+                test("f5a5a5a5-a5a5-a5a5-a5a5-a5a5a5a5a5a5"),
+                stub(anyUuid())
+            ),
+            description: value(
+                test("A gamer notebook"),
+                stub(optional(nonBlank()))
+            )
+        ])
     }
     response {
         status 200

@@ -1,11 +1,11 @@
 package com.apelisser.algashop.product.catalog.contract.base;
 
 import com.apelisser.algashop.product.catalog.application.ResourceNotFoundException;
-import com.apelisser.algashop.product.catalog.application.product.management.CategoryInput;
-import com.apelisser.algashop.product.catalog.application.product.management.CategoryManagementApplicationService;
-import com.apelisser.algashop.product.catalog.application.product.query.CategoryDetailOutput;
-import com.apelisser.algashop.product.catalog.application.product.query.CategoryQueryService;
-import com.apelisser.algashop.product.catalog.application.product.query.PageModel;
+import com.apelisser.algashop.product.catalog.application.category.management.CategoryInput;
+import com.apelisser.algashop.product.catalog.application.category.management.CategoryManagementApplicationService;
+import com.apelisser.algashop.product.catalog.application.category.query.CategoryDetailOutput;
+import com.apelisser.algashop.product.catalog.application.category.query.CategoryQueryService;
+import com.apelisser.algashop.product.catalog.application.PageModel;
 import com.apelisser.algashop.product.catalog.presentation.CategoryController;
 import io.restassured.module.mockmvc.RestAssuredMockMvc;
 import org.junit.jupiter.api.BeforeEach;

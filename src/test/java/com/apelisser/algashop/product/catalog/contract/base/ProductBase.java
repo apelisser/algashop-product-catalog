@@ -3,7 +3,7 @@ package com.apelisser.algashop.product.catalog.contract.base;
 import com.apelisser.algashop.product.catalog.application.ResourceNotFoundException;
 import com.apelisser.algashop.product.catalog.application.product.management.ProductInput;
 import com.apelisser.algashop.product.catalog.application.product.management.ProductManagementApplicationService;
-import com.apelisser.algashop.product.catalog.application.product.query.PageModel;
+import com.apelisser.algashop.product.catalog.application.PageModel;
 import com.apelisser.algashop.product.catalog.application.product.query.ProductDetailOutput;
 import com.apelisser.algashop.product.catalog.application.product.query.ProductDetailOutputTestDataBuilder;
 import com.apelisser.algashop.product.catalog.application.product.query.ProductQueryService;

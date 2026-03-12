@@ -9,18 +9,18 @@ Contract.make {
             accept 'application/json'
             contentType 'application/json'
         }
-        urlPath("/api/v1/categories") {
-            body([
-                name: value(
-                    test("Notebook"),
-                    stub(nonBlank())
-                ),
-                enabled: value(
-                    test(true),
-                    stub(anyBoolean())
-                )
-            ])
-        }
+        urlPath("/api/v1/categories")
+        body([
+            name: value(
+                test("Notebook"),
+                stub(nonBlank())
+            ),
+            enabled: value(
+                test(true),
+                stub(anyBoolean())
+            )
+        ])
+
     }
     response {
         status 201

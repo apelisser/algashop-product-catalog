@@ -2,7 +2,7 @@ package com.apelisser.algashop.product.catalog.presentation;
 
 import com.apelisser.algashop.product.catalog.application.product.management.ProductInput;
 import com.apelisser.algashop.product.catalog.application.product.management.ProductManagementApplicationService;
-import com.apelisser.algashop.product.catalog.application.product.query.PageModel;
+import com.apelisser.algashop.product.catalog.application.PageModel;
 import com.apelisser.algashop.product.catalog.application.product.query.ProductDetailOutput;
 import com.apelisser.algashop.product.catalog.application.product.query.ProductQueryService;
 import jakarta.validation.Valid;

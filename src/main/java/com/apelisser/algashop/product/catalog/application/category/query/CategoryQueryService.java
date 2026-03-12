@@ -1,4 +1,6 @@
-package com.apelisser.algashop.product.catalog.application.product.query;
+package com.apelisser.algashop.product.catalog.application.category.query;
+
+import com.apelisser.algashop.product.catalog.application.PageModel;
 
 import java.util.UUID;
 
