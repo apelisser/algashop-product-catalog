@@ -1,5 +1,6 @@
 package com.apelisser.algashop.product.catalog.domain.model.category;
 
+import com.apelisser.algashop.product.catalog.domain.model.IdGenerator;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import org.springframework.data.annotation.Id;
@@ -29,7 +30,7 @@ public class Category {
     }
 
     public Category(String name, Boolean enabled) {
-        this.id = UUID.randomUUID();
+        this.id = IdGenerator.generateTimeBasedUUID();
         this.setName(name);
         this.setEnabled(enabled);
         this.createdAt = OffsetDateTime.now();
