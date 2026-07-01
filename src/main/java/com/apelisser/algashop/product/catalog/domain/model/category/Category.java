@@ -3,7 +3,12 @@ package com.apelisser.algashop.product.catalog.domain.model.category;
 import com.apelisser.algashop.product.catalog.domain.model.IdGenerator;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.annotation.Version;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.OffsetDateTime;
@@ -22,9 +27,20 @@ public class Category {
 
     private Boolean enabled;
 
+    @Version
+    private Long version;
+
+    @CreatedDate
     private OffsetDateTime createdAt;
 
+    @LastModifiedDate
     private OffsetDateTime updatedAt;
+
+    @CreatedBy
+    private UUID createdByUserId;
+
+    @LastModifiedBy
+    private UUID lastModifiedByUserId;
 
     protected Category() {
     }
@@ -33,7 +49,6 @@ public class Category {
         this.id = IdGenerator.generateTimeBasedUUID();
         this.setName(name);
         this.setEnabled(enabled);
-        this.createdAt = OffsetDateTime.now();
     }
 
     public void setName(String name) {
