@@ -1,5 +1,6 @@
 package com.apelisser.algashop.product.catalog.domain.model.product;
 
+import com.apelisser.algashop.product.catalog.domain.model.DomainException;
 import com.apelisser.algashop.product.catalog.domain.model.IdGenerator;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -58,13 +59,104 @@ public class Product {
 
     @Builder
     public Product(String name, String brand, String description, Boolean enabled, BigDecimal regularPrice, BigDecimal salePrice) {
-        this.id = IdGenerator.generateTimeBasedUUID();
+        this.setId(IdGenerator.generateTimeBasedUUID());
+        this.setName(name);
+        this.setBrand(brand);
+        this.setDescription(description);
+        this.setEnabled(enabled);
+        this.setRegularPrice(regularPrice);
+        this.setSalePrice(salePrice);
+    }
+
+    public void setName(String name) {
+        if (name == null || name.isBlank()) {
+            throw new IllegalArgumentException("Name cannot be null or blank");
+        }
         this.name = name;
+    }
+
+    public void setBrand(String brand) {
+        if (brand == null || brand.isBlank()) {
+            throw new IllegalArgumentException("Brand cannot be null or blank");
+        }
         this.brand = brand;
+    }
+
+    public void setDescription(String description) {
         this.description = description;
-        this.enabled = enabled;
+    }
+
+    private void setRegularPrice(BigDecimal regularPrice) {
+        if (regularPrice == null) {
+            throw new IllegalArgumentException("Regular price cannot be null");
+        }
+
+        if (regularPrice.signum() == -1) {
+            throw new IllegalArgumentException("Regular price cannot be negative");
+        }
+
+        if (this.salePrice == null) {
+            this.salePrice = regularPrice;
+        } else if (regularPrice.compareTo(this.salePrice) < 0) {
+            throw new DomainException("Sale price cannot be greater than regular price");
+        }
+
         this.regularPrice = regularPrice;
+    }
+
+    private void setSalePrice(BigDecimal salePrice) {
+        if (salePrice == null) {
+            throw new IllegalArgumentException("Regular price cannot be null");
+        }
+
+        if (salePrice.signum() == -1) {
+            throw new IllegalArgumentException("Regular price cannot be negative");
+        }
+
+        if (this.regularPrice == null) {
+            this.regularPrice = salePrice;
+        } else if (this.regularPrice.compareTo(salePrice) < 0) {
+            throw new DomainException("Sale price cannot be greater than regular price");
+        }
+
         this.salePrice = salePrice;
+    }
+
+    public void setEnabled(Boolean enabled) {
+        if (enabled == null) {
+            throw new IllegalArgumentException("Enabled cannot be null");
+        }
+
+        this.enabled = enabled;
+    }
+
+    public void enable() {
+        this.enabled = true;
+    }
+
+    public void disable() {
+        this.enabled = false;
+    }
+
+    public boolean isInStock() {
+        return this.getQuantityInStock() != null && this.getQuantityInStock() > 0;
+    }
+
+    private void setId(UUID id) {
+        if (id == null) {
+            throw new IllegalArgumentException("Id cannot be null");
+        }
+        this.id = id;
+    }
+
+    private void setQuantityInStock(Integer quantityInStock) {
+        if (quantityInStock == null) {
+            throw new IllegalArgumentException("Quantity in stock cannot be null");
+        }
+        if (quantityInStock < 0) {
+            throw new IllegalArgumentException("Quantity in stock cannot be negative");
+        }
+        this.quantityInStock = quantityInStock;
     }
 
 }
