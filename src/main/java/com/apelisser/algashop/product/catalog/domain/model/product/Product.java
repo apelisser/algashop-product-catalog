@@ -42,7 +42,7 @@ public class Product {
     private Long version;
 
     @CreatedDate
-    private OffsetDateTime createdAt;
+    private OffsetDateTime addedAt;
 
     @LastModifiedDate
     private OffsetDateTime updatedAt;
