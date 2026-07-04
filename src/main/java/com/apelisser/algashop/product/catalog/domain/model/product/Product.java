@@ -2,6 +2,7 @@ package com.apelisser.algashop.product.catalog.domain.model.product;
 
 import com.apelisser.algashop.product.catalog.domain.model.DomainException;
 import com.apelisser.algashop.product.catalog.domain.model.IdGenerator;
+import com.apelisser.algashop.product.catalog.domain.model.category.Category;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -12,6 +13,8 @@ import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.annotation.Version;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.DocumentReference;
+import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
@@ -39,6 +42,10 @@ public class Product {
 
     private BigDecimal salePrice;
 
+    @DocumentReference
+    @Field(name = "categoryId")
+    private Category category;
+
     @Version
     private Long version;
 
@@ -58,7 +65,8 @@ public class Product {
     }
 
     @Builder
-    public Product(String name, String brand, String description, Boolean enabled, BigDecimal regularPrice, BigDecimal salePrice) {
+    public Product(String name, String brand, String description, Boolean enabled, BigDecimal regularPrice,
+            BigDecimal salePrice, Category category) {
         this.setId(IdGenerator.generateTimeBasedUUID());
         this.setName(name);
         this.setBrand(brand);
@@ -66,6 +74,7 @@ public class Product {
         this.setEnabled(enabled);
         this.setRegularPrice(regularPrice);
         this.setSalePrice(salePrice);
+        this.setCategory(category);
     }
 
     public void setName(String name) {
@@ -120,6 +129,13 @@ public class Product {
         }
 
         this.salePrice = salePrice;
+    }
+
+    public void setCategory(Category category) {
+        if (category == null) {
+            throw new IllegalArgumentException("Category cannot be null");
+        }
+        this.category = category;
     }
 
     public void setEnabled(Boolean enabled) {

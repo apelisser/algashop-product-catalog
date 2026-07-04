@@ -8,3 +8,9 @@ spring:
     uri: mongodb://root:algashop@localhost:27017/product_catalog?authSource=admin
     # Comentando em favor da configuração via @Bean em MongoConfig
     # representation.uuid: standard
+
+logging:
+  level:
+    org.mongodb.driver.protocol.command: DEBUG
+    org.mongodb.driver.protocol.query: DEBUG
+    org.mongodb.driver.connection: DEBUG
