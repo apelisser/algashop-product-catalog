@@ -1,11 +1,11 @@
 package com.apelisser.algashop.product.catalog.infrastructure.persistence.category;
 
 import com.apelisser.algashop.product.catalog.application.PageModel;
-import com.apelisser.algashop.product.catalog.application.ResourceNotFoundException;
 import com.apelisser.algashop.product.catalog.application.category.query.CategoryDetailOutput;
 import com.apelisser.algashop.product.catalog.application.category.query.CategoryQueryService;
 import com.apelisser.algashop.product.catalog.application.utility.Mapper;
 import com.apelisser.algashop.product.catalog.domain.model.category.Category;
+import com.apelisser.algashop.product.catalog.domain.model.category.CategoryNotFoundException;
 import com.apelisser.algashop.product.catalog.domain.model.category.CategoryRepository;
 import org.springframework.stereotype.Service;
 
@@ -25,7 +25,7 @@ public class CategoryQueryServiceImpl implements CategoryQueryService {
     @Override
     public CategoryDetailOutput findById(UUID categoryId) {
         Category category = categoryRepository.findById(categoryId)
-            .orElseThrow(ResourceNotFoundException::new);
+            .orElseThrow(() -> new CategoryNotFoundException(categoryId));
         return mapper.convert(category, CategoryDetailOutput.class);
     }
 

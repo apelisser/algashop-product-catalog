@@ -1,7 +1,7 @@
 package com.apelisser.algashop.product.catalog.application.product.management;
 
-import com.apelisser.algashop.product.catalog.application.ResourceNotFoundException;
 import com.apelisser.algashop.product.catalog.domain.model.category.Category;
+import com.apelisser.algashop.product.catalog.domain.model.category.CategoryNotFoundException;
 import com.apelisser.algashop.product.catalog.domain.model.category.CategoryRepository;
 import com.apelisser.algashop.product.catalog.domain.model.product.Product;
 import com.apelisser.algashop.product.catalog.domain.model.product.ProductRepository;
@@ -50,7 +50,7 @@ public class ProductManagementApplicationService {
 
     private Category findCategory(@NotNull UUID categoryId) {
         return categoryRepository.findById(categoryId)
-            .orElseThrow(ResourceNotFoundException::new);
+            .orElseThrow(() -> new CategoryNotFoundException(categoryId));
     }
 
 }
