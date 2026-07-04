@@ -86,7 +86,7 @@ public class Product {
         this.description = description;
     }
 
-    private void setRegularPrice(BigDecimal regularPrice) {
+    public void setRegularPrice(BigDecimal regularPrice) {
         if (regularPrice == null) {
             throw new IllegalArgumentException("Regular price cannot be null");
         }
@@ -104,7 +104,7 @@ public class Product {
         this.regularPrice = regularPrice;
     }
 
-    private void setSalePrice(BigDecimal salePrice) {
+    public void setSalePrice(BigDecimal salePrice) {
         if (salePrice == null) {
             throw new IllegalArgumentException("Regular price cannot be null");
         }

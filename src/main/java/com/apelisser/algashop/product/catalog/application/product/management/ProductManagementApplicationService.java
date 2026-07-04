@@ -4,6 +4,7 @@ import com.apelisser.algashop.product.catalog.domain.model.category.Category;
 import com.apelisser.algashop.product.catalog.domain.model.category.CategoryNotFoundException;
 import com.apelisser.algashop.product.catalog.domain.model.category.CategoryRepository;
 import com.apelisser.algashop.product.catalog.domain.model.product.Product;
+import com.apelisser.algashop.product.catalog.domain.model.product.ProductNotFoundException;
 import com.apelisser.algashop.product.catalog.domain.model.product.ProductRepository;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.stereotype.Service;
@@ -28,11 +29,37 @@ public class ProductManagementApplicationService {
     }
 
     public void update(UUID productId, ProductInput input) {
+        Product product = findProduct(productId);
+        Category category = findCategory(input.getCategoryId());
 
+        updateProduct(product, input);
+        productRepository.save(product);
     }
 
     public void disable(UUID productId) {
+        Product product = findProduct(productId);
+        product.disable();
+        productRepository.save(product);
+    }
 
+    public void enable(UUID productId) {
+        Product product = findProduct(productId);
+        product.enable();
+        productRepository.save(product);
+    }
+
+    private void updateProduct(Product product, ProductInput input) {
+        product.setName(input.getName());
+        product.setBrand(input.getBrand());
+        product.setDescription(input.getDescription());
+        product.setRegularPrice(input.getRegularPrice());
+        product.setSalePrice(input.getSalePrice());
+        product.setEnabled(input.getEnabled());
+    }
+
+    private Product findProduct(UUID productId) {
+        return productRepository.findById(productId)
+            .orElseThrow(() -> new ProductNotFoundException(productId));
     }
 
     private Product mapToProduct(ProductInput input) {
