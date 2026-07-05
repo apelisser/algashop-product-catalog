@@ -5,6 +5,7 @@ import com.apelisser.algashop.product.catalog.application.product.management.Pro
 import com.apelisser.algashop.product.catalog.application.PageModel;
 import com.apelisser.algashop.product.catalog.application.product.query.ProductDetailOutput;
 import com.apelisser.algashop.product.catalog.application.product.query.ProductQueryService;
+import com.apelisser.algashop.product.catalog.application.product.query.ProductSumaryOutput;
 import com.apelisser.algashop.product.catalog.domain.model.category.CategoryNotFoundException;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -44,7 +45,7 @@ public class ProductController {
     }
 
     @GetMapping
-    public PageModel<ProductDetailOutput> filter(
+    public PageModel<ProductSumaryOutput> filter(
             @RequestParam(name = "size", required = false) Integer size,
             @RequestParam(name = "number", required = false) Integer number) {
         return productQueryService.filter(size, number);

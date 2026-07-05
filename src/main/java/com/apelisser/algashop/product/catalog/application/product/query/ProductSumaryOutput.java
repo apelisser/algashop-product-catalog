@@ -15,7 +15,7 @@ import java.util.UUID;
 @ToString
 @EqualsAndHashCode
 @Builder
-public class ProductDetailOutput {
+public class ProductSumaryOutput {
 
     private UUID id;
     private OffsetDateTime addedAt;
@@ -27,18 +27,18 @@ public class ProductDetailOutput {
     private Boolean enabled;
     private UUID categoryId;
     private CategoryMinimalOutput category;
-    private String description;
+    private String shortDescription;
     private String slug;
     private Boolean hasDiscount;
     private Integer quantityInStock;
     private Integer discountPercentageRounded;
 
-    public ProductDetailOutput() {
+    public ProductSumaryOutput() {
     }
 
-    public ProductDetailOutput(UUID id, OffsetDateTime addedAt, String name, String brand, BigDecimal regularPrice,
+    public ProductSumaryOutput(UUID id, OffsetDateTime addedAt, String name, String brand, BigDecimal regularPrice,
             BigDecimal salePrice, Boolean inStock, Boolean enabled, UUID categoryId, CategoryMinimalOutput category,
-            String description, String slug, Boolean hasDiscount, Integer quantityInStock,
+            String shortDescription, String slug, Boolean hasDiscount, Integer quantityInStock,
             Integer discountPercentageRounded) {
         this.id = id;
         this.addedAt = addedAt;
@@ -50,7 +50,7 @@ public class ProductDetailOutput {
         this.enabled = enabled;
         this.categoryId = categoryId;
         this.category = category;
-        this.description = description;
+        this.shortDescription = shortDescription;
         this.slug = slug;
         this.hasDiscount = hasDiscount;
         this.quantityInStock = quantityInStock;
