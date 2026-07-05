@@ -5,6 +5,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.springframework.data.domain.Page;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +34,16 @@ public class PageModel<T> {
         this.totalPages = totalPages;
         this.totalElements = totalElements;
         this.content = content;
+    }
+
+    public static <T> PageModel<T> of(Page<T> page) {
+        return PageModel.<T>builder()
+            .content(page.getContent())
+            .number(page.getNumber())
+            .size(page.getSize())
+            .totalPages(page.getTotalPages())
+            .totalElements(page.getTotalElements())
+            .build();
     }
 
 }
