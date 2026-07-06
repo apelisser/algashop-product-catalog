@@ -2,6 +2,7 @@ package com.apelisser.algashop.product.catalog.infrastructure.persistence.produc
 
 import com.apelisser.algashop.product.catalog.application.PageModel;
 import com.apelisser.algashop.product.catalog.application.product.query.ProductDetailOutput;
+import com.apelisser.algashop.product.catalog.application.product.query.ProductFilter;
 import com.apelisser.algashop.product.catalog.application.product.query.ProductQueryService;
 import com.apelisser.algashop.product.catalog.application.product.query.ProductSumaryOutput;
 import com.apelisser.algashop.product.catalog.application.utility.Mapper;
@@ -33,8 +34,8 @@ public class ProductQueryServiceImpl implements ProductQueryService {
     }
 
     @Override
-    public PageModel<ProductSumaryOutput> filter(Integer size, Integer number) {
-        Page<Product> products = productRepository.findAll(PageRequest.of(number, size));
+    public PageModel<ProductSumaryOutput> filter(ProductFilter filter) {
+        Page<Product> products = productRepository.findAll(PageRequest.of(filter.getPage(), filter.getSize()));
         Page<ProductSumaryOutput> productOutputs = products.map(product -> mapper.convert(product, ProductSumaryOutput.class));
         return PageModel.of(productOutputs);
     }

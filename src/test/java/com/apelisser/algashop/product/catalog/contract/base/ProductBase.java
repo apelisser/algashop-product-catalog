@@ -6,6 +6,7 @@ import com.apelisser.algashop.product.catalog.application.product.management.Pro
 import com.apelisser.algashop.product.catalog.application.PageModel;
 import com.apelisser.algashop.product.catalog.application.product.query.ProductDetailOutput;
 import com.apelisser.algashop.product.catalog.application.product.query.ProductDetailOutputTestDataBuilder;
+import com.apelisser.algashop.product.catalog.application.product.query.ProductFilter;
 import com.apelisser.algashop.product.catalog.application.product.query.ProductQueryService;
 import com.apelisser.algashop.product.catalog.presentation.ProductController;
 import io.restassured.module.mockmvc.RestAssuredMockMvc;
@@ -87,7 +88,7 @@ public class ProductBase {
     }
 
     private void mockFilterProducts() {
-        Mockito.when(productQueryService.filter(Mockito.anyInt(), Mockito.anyInt()))
+        Mockito.when(productQueryService.filter(Mockito.any(ProductFilter.class)))
             .then(answer -> {
                 Integer size = answer.getArgument(0);
 

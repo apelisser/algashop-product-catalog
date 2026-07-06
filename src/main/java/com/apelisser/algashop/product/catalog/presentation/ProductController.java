@@ -1,15 +1,24 @@
 package com.apelisser.algashop.product.catalog.presentation;
 
+import com.apelisser.algashop.product.catalog.application.PageModel;
 import com.apelisser.algashop.product.catalog.application.product.management.ProductInput;
 import com.apelisser.algashop.product.catalog.application.product.management.ProductManagementApplicationService;
-import com.apelisser.algashop.product.catalog.application.PageModel;
 import com.apelisser.algashop.product.catalog.application.product.query.ProductDetailOutput;
+import com.apelisser.algashop.product.catalog.application.product.query.ProductFilter;
 import com.apelisser.algashop.product.catalog.application.product.query.ProductQueryService;
 import com.apelisser.algashop.product.catalog.application.product.query.ProductSumaryOutput;
 import com.apelisser.algashop.product.catalog.domain.model.category.CategoryNotFoundException;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.UUID;
 
@@ -21,7 +30,7 @@ public class ProductController {
     private final ProductManagementApplicationService productManagementApplicationService;
 
     public ProductController(ProductQueryService productQueryService,
-            ProductManagementApplicationService productManagementApplicationService) {
+        ProductManagementApplicationService productManagementApplicationService) {
         this.productQueryService = productQueryService;
         this.productManagementApplicationService = productManagementApplicationService;
     }
@@ -45,10 +54,8 @@ public class ProductController {
     }
 
     @GetMapping
-    public PageModel<ProductSumaryOutput> filter(
-            @RequestParam(name = "size", required = false) Integer size,
-            @RequestParam(name = "page", required = false) Integer page) {
-        return productQueryService.filter(size, page);
+    public PageModel<ProductSumaryOutput> filter(ProductFilter productFilter) {
+        return productQueryService.filter(productFilter);
     }
 
     @PutMapping("/{productId}")
