@@ -9,11 +9,17 @@ import com.apelisser.algashop.product.catalog.application.utility.Mapper;
 import com.apelisser.algashop.product.catalog.domain.model.product.Product;
 import com.apelisser.algashop.product.catalog.domain.model.product.ProductNotFoundException;
 import com.apelisser.algashop.product.catalog.domain.model.product.ProductRepository;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.mongodb.core.MongoOperations;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class ProductQueryServiceImpl implements ProductQueryService {
@@ -21,9 +27,12 @@ public class ProductQueryServiceImpl implements ProductQueryService {
     private final ProductRepository productRepository;
     private final Mapper mapper;
 
-    public ProductQueryServiceImpl(ProductRepository productRepository, Mapper mapper) {
+    private final MongoOperations mongoOperations;
+
+    public ProductQueryServiceImpl(ProductRepository productRepository, Mapper mapper, MongoOperations mongoOperations) {
         this.productRepository = productRepository;
         this.mapper = mapper;
+        this.mongoOperations = mongoOperations;
     }
 
     @Override
@@ -35,9 +44,52 @@ public class ProductQueryServiceImpl implements ProductQueryService {
 
     @Override
     public PageModel<ProductSumaryOutput> filter(ProductFilter filter) {
-        Page<Product> products = productRepository.findAll(PageRequest.of(filter.getPage(), filter.getSize()));
-        Page<ProductSumaryOutput> productOutputs = products.map(product -> mapper.convert(product, ProductSumaryOutput.class));
-        return PageModel.of(productOutputs);
+        Query query = queryWith(filter);
+
+        long totalItems = mongoOperations.count(query, Product.class);
+        Sort sort = sortWith(filter);
+
+        PageRequest pageRequest = PageRequest.of(filter.getPage(), filter.getSize(), sort);
+
+        Query pagedQuery = query.with(pageRequest);
+
+        List<Product> products;
+        int totalPages = 0;
+        if (totalItems > 0) {
+            products = mongoOperations.find(pagedQuery, Product.class);
+            totalPages = (int) Math.ceil((double) totalItems / pageRequest.getPageSize());
+        } else {
+            products = new ArrayList<>();
+        }
+
+        List<ProductSumaryOutput> productOutputs = products.stream()
+            .map(product -> mapper.convert(product, ProductSumaryOutput.class))
+            .collect(Collectors.toList());
+
+        return PageModel.<ProductSumaryOutput>builder()
+            .content(productOutputs)
+            .number(pageRequest.getPageSize())
+            .size(pageRequest.getPageSize())
+            .totalElements(totalItems)
+            .totalPages(totalPages)
+            .build();
+    }
+
+    private Sort sortWith(ProductFilter filter) {
+        return Sort.by(
+            filter.getSortDirectionOrDefault(),
+            filter.getSortByPropertyOrDefault().getPropertyName()
+        );
+    }
+
+    private Query queryWith(ProductFilter filter) {
+        Query query = new Query();
+
+        if (filter.getEnabled() != null) {
+            query.addCriteria(Criteria.where("enabled").is(filter.getEnabled()));
+        }
+
+        return query;
     }
 
 }

@@ -71,10 +71,10 @@ public class ProductFilter extends SortablePageFilter<ProductFilter.SortType> {
         ADDED_AT("addedAt"),
         SALE_PRICE("salePrice");
 
-        private final String property;
+        private final String propertyName;
 
-        SortType(String property) {
-            this.property = property;
+        SortType(String propertyName) {
+            this.propertyName = propertyName;
         }
     }
 
