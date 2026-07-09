@@ -9,6 +9,7 @@ import com.apelisser.algashop.product.catalog.application.utility.Mapper;
 import com.apelisser.algashop.product.catalog.domain.model.product.Product;
 import com.apelisser.algashop.product.catalog.domain.model.product.ProductNotFoundException;
 import com.apelisser.algashop.product.catalog.domain.model.product.ProductRepository;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoOperations;
@@ -25,6 +26,8 @@ import java.util.stream.Collectors;
 
 @Service
 public class ProductQueryServiceImpl implements ProductQueryService {
+
+    private static final String findWordRegex = "(?i)%s"; //%s é do java
 
     private final ProductRepository productRepository;
     private final Mapper mapper;
@@ -141,6 +144,17 @@ public class ProductQueryServiceImpl implements ProductQueryService {
             query.addCriteria(Criteria.where("categoryId").in(
                 (Object[]) filter.getCategoriesId()
             ));
+        }
+
+        if (StringUtils.isNotBlank(filter.getTerm())) {
+            String regexExpression = String.format(findWordRegex, filter.getTerm());
+            query.addCriteria(
+                new Criteria().orOperator(
+                    Criteria.where("name").regex(regexExpression),
+                    Criteria.where("brand").regex(regexExpression),
+                    Criteria.where("description").regex(regexExpression)
+                )
+            );
         }
 
         return query;
